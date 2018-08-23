@@ -18,6 +18,13 @@
 
     For every branch which you whant to work with you need to do: 
     
-  git branch --track BRANCH_NAME remotes/origin/BRANCH_NAME
+git branch --track BRANCH_NAME remotes/origin/BRANCH_NAME
   
      After that you can sync every time with remote repo by "git pull -a" and "git fetch"
+     
+     This bash script should do it automatically for all branches (didn't tried):
+     
+#!/bin/bash
+for branch in $(git branch --all | grep '^\s*remotes' | egrep --invert-match '(:?HEAD|master)$'); do
+    git branch --track "${branch##*/}" "$branch"
+done

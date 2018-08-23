@@ -1,0 +1,23 @@
+1.a Create local repository in a directory ORIGIN_DIR: git init ...
+1.b Do commits, create branches
+
+2.a To create a tracking copy:
+   - create another directory NEW_DIR
+   - do "git clone ORIGIN_DIR/.git"
+   
+2.b You will have only one branch which was current in ORIGIN_DIR when you did a clone.
+    To see all branches do "git branch -a". You will se like this:
+    
+  
+* CURRENT_BRANCH
+  remotes/origin/HEAD -> origin/CURRENT_BRANCH
+  remotes/origin/BRANCH1
+  remotes/origin/BRANCH2
+  remotes/origin/master
+  remotes/origin/BRANCH3
+
+    For every branch which you whant to work with you need to do: 
+    
+  git branch --track BRANCH_NAME remotes/origin/BRANCH_NAME
+  
+     After that you can sync every time with remote repo by "git pull -a" and "git fetch"

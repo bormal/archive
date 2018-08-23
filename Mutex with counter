@@ -1,3 +1,5 @@
+// example: https://github.com/lettergram/semapore/blob/master/semaphore.cpp
+
 #include <thread>
 #include <mutex>
 #include <condition_variable>

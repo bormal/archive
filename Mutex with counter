@@ -1,0 +1,45 @@
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+int CountedMutex::count = 0;
+std::mutex CountedMutex::mutex;
+std::condition_variable CountedMutex::cv;
+
+class CountedMutex {
+public:
+    CountedMutex();
+    ~CountedMutex();
+    void enter();
+    void leave();
+
+private:
+    static std::mutex mutex;
+    static std::condition_variable cv;
+    static int count;
+};
+
+CountedMutex::CountedMutex() {
+    enter();
+}
+
+CountedMutex::~CountedMutex() {
+    leave();
+}
+
+void CountedMutex::enter() {
+    std::unique_lock<std::mutex> lock(mutex);
+    while(count > LIMIT_FOR_SIMULTANEOUS_OPERATIONS) {
+        std::cout << "CountedMutex wait: " << count << std::endl;
+        cv.wait(lock);
+    }
+
+    count++;
+    std::cout << "CountedMutex enter: " << count << std::endl;
+}
+
+void CountedMutex::leave() {
+    count--;
+    cv.notify_all();
+    std::cout << "CountedMutex leave: " << count << std::endl;
+}

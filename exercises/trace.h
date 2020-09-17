@@ -1,3 +1,11 @@
+#include <algorithm>
+#include <set>
+#include <map>
+#include <vector>
+#include <cstring>
+
+using namespace std;
+
 /* Print pair */
 template <typename T,typename S>
 ostream & operator << (ostream &os , const pair<T,S> &v) {
